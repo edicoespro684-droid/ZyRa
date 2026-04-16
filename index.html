@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+  <title>ZyRa | Marketing Digital de Alta Performance</title>
+  <!-- Google Fonts + Font Awesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Chart.js para gráficos profissionais -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <!-- Favicon com logo.png -->
+  <link rel="icon" type="image/png" sizes="32x32" href="logo.png">
+  <link rel="apple-touch-icon" href="logo.png">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #FDFCF8;
+      color: #1E2A32;
+      scroll-behavior: smooth;
+      line-height: 1.4;
+      overflow-x: hidden;
+    }
+
+    /* SPLASH / HERO INICIAL - LOGO GIGANTE EM TELA CHEIA */
+    .splash-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: linear-gradient(145deg, #FDF8ED 0%, #F9F1E0 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      transition: opacity 0.8s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .splash-content {
+      text-align: center;
+      transform: scale(1);
+      animation: gentlePulse 1.8s ease-in-out infinite;
+    }
+
+    @keyframes gentlePulse {
+      0% { transform: scale(1); opacity: 0.9; }
+      50% { transform: scale(1.02); opacity: 1; }
+      100% { transform: scale(1); opacity: 0.9; }
+    }
+
+    .splash-logo-img {
+      width: 180px;
+      height: 180px;
+      object-fit: contain;
+      filter: drop-shadow(0 20px 30px rgba(0,0,0,0.12));
+      margin-bottom: 28px;
+    }
+
+    .splash-title {
+      font-size: 4.2rem;
+      font-weight: 800;
+      letter-spacing: -1px;
+      background: linear-gradient(135deg, #C9A03D, #D4AF37, #B8860B);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 12px;
+    }
+
+    .splash-sub {
+      font-size: 1rem;
+      color: #8B7A5C;
+      letter-spacing: 2px;
+      font-weight: 500;
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: #D4AF37;
+      font-size: 0.8rem;
+      font-weight: 500;
+      opacity: 0.7;
+      transition: opacity 0.3s;
+    }
+
+    .scroll-indicator i {
+      font-size: 1.3rem;
+      animation: bounce 1.5s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(8px); }
+    }
+
+    /* CONTEÚDO PRINCIPAL (inicialmente oculto, fade-in ao rolar) */
+    .main-content {
+      opacity: 0;
+      transition: opacity 0.7s ease-out;
+    }
+
+    .main-content.visible {
+      opacity: 1;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    /* Header fixo que surge após o splash */
+    .fixed-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: rgba(253, 252, 248, 0.96);
+      backdrop-filter: blur(12px);
+      z-index: 100;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+      transform: translateY(-100%);
+      transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+    }
+
+    .fixed-header.visible-header {
+      transform: translateY(0);
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 32px;
+      flex-wrap: wrap;
+      gap: 20px;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    .logo-mini {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-mini-img {
+      width: 42px;
+      height: 42px;
+      object-fit: contain;
+    }
+
+    .logo-mini-text h4 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #C9A03D, #D4AF37);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-weight: 500;
+      color: #2C3A47;
+      transition: 0.2s;
+      font-size: 0.9rem;
+    }
+
+    .nav-links a:hover {
+      color: #D4AF37;
+    }
+
+    .btn-outline-gold {
+      border: 1.5px solid #D4AF37;
+      background: transparent;
+      padding: 8px 24px;
+      border-radius: 40px;
+      font-weight: 600;
+      color: #B8860B;
+      transition: all 0.25s;
+      cursor: pointer;
+      font-size: 0.85rem;
+    }
+
+    .btn-outline-gold:hover {
+      background: #D4AF37;
+      color: #1E2A32;
+    }
+
+    /* Hero após rolagem */
+    .hero {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      margin: 100px 0 70px;
+      gap: 48px;
+    }
+
+    .hero-content {
+      flex: 1.2;
+    }
+
+    .hero-badge {
+      background: #F9F3E0;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 18px;
+      border-radius: 60px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #B8860B;
+      margin-bottom: 24px;
+    }
+
+    .hero-content h2 {
+      font-size: 3.4rem;
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -1px;
+      color: #0F1C26;
+      margin-bottom: 24px;
+    }
+
+    .hero-content h2 span {
+      background: linear-gradient(120deg, #D4AF37, #F5D97F);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-content p {
+      font-size: 1.1rem;
+      color: #4F5E6B;
+      max-width: 520px;
+      margin-bottom: 36px;
+      line-height: 1.5;
+    }
+
+    .hero-image {
+      flex: 1;
+      border-radius: 36px;
+      overflow: hidden;
+      box-shadow: 0 30px 40px -20px rgba(0,0,0,0.2);
+    }
+
+    .hero-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+    }
+
+    /* Seção serviços */
+    .section-title {
+      font-size: 2.3rem;
+      font-weight: 700;
+      margin-bottom: 48px;
+      text-align: center;
+      letter-spacing: -0.5px;
+      color: #1E2A32;
+    }
+
+    .section-title span {
+      color: #D4AF37;
+      border-bottom: 3px solid #F3DE8A;
+      padding-bottom: 4px;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 32px;
+      margin: 48px 0;
+    }
+
+    .card {
+      background: white;
+      padding: 34px 26px;
+      border-radius: 32px;
+      box-shadow: 0 20px 32px -12px rgba(0,0,0,0.04);
+      transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+      border: 1px solid #F0EDE4;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 32px 44px -12px rgba(212, 175, 55, 0.15);
+      border-color: #E9D39D;
+    }
+
+    .card-icon {
+      font-size: 2.5rem;
+      color: #D4AF37;
+      margin-bottom: 24px;
+    }
+
+    .card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+
+    .card p {
+      color: #5C6F87;
+      line-height: 1.5;
+    }
+
+    /* QUIZ ÁREA */
+    .quiz-section {
+      background: #FFFFFF;
+      border-radius: 56px;
+      margin: 64px 0;
+      box-shadow: 0 28px 48px -20px rgba(0,0,0,0.08);
+      padding: 52px 48px;
+      border: 1px solid #F2EBD8;
+    }
+
+    .quiz-header {
+      text-align: center;
+      margin-bottom: 44px;
+    }
+
+    .quiz-header h3 {
+      font-size: 2rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #B8860B, #D4AF37);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .quiz-form {
+      display: flex;
+      flex-direction: column;
+      gap: 28px;
+    }
+
+    .form-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+
+    .form-group {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    label {
+      font-weight: 600;
+      display: block;
+      margin-bottom: 8px;
+      color: #2C3E3F;
+      font-size: 0.9rem;
+    }
+
+    input {
+      width: 100%;
+      padding: 16px 18px;
+      border-radius: 24px;
+      border: 1.5px solid #E9E2D0;
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      transition: 0.2s;
+      background: #FEFCF8;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: #D4AF37;
+      box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.12);
+    }
+
+    .quiz-questions {
+      background: #FEFAF2;
+      border-radius: 36px;
+      padding: 32px;
+      margin: 12px 0;
+    }
+
+    .question-item {
+      margin-bottom: 32px;
+    }
+
+    .question-item p {
+      font-weight: 700;
+      margin-bottom: 14px;
+      color: #2E3B3E;
+    }
+
+    .radio-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .radio-group label {
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      color: #4A5B66;
+    }
+
+    .btn-primary {
+      background: linear-gradient(105deg, #B8860B, #D4AF37, #E8C547);
+      border: none;
+      padding: 18px 28px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      border-radius: 60px;
+      color: #1E2A32;
+      cursor: pointer;
+      transition: 0.2s;
+      width: 100%;
+      margin-top: 20px;
+      box-shadow: 0 12px 22px -8px rgba(184, 134, 11, 0.35);
+    }
+
+    .btn-primary:hover {
+      transform: scale(0.98);
+      background: linear-gradient(105deg, #A0750A, #C9A03D);
+    }
+
+    .result-area {
+      margin-top: 44px;
+      background: #FEFBF3;
+      border-radius: 40px;
+      padding: 36px;
+      display: none;
+      animation: fadeInUp 0.55s ease;
+      border: 1px solid #F3E7CE;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(16px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+
+    .charts-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 32px;
+      justify-content: center;
+      margin: 28px 0;
+    }
+
+    .chart-box {
+      flex: 1;
+      min-width: 250px;
+      background: white;
+      border-radius: 28px;
+      padding: 20px;
+    }
+
+    canvas {
+      max-height: 210px;
+      width: 100%;
+    }
+
+    .diagnostic-message {
+      margin-top: 24px;
+      font-weight: 500;
+      background: #FFFFFFE6;
+      padding: 24px;
+      border-radius: 28px;
+      border-left: 6px solid #D4AF37;
+      color: #2A3B47;
+    }
+
+    footer {
+      background: #121D26;
+      color: #BFAF8C;
+      padding: 48px 0 32px;
+      margin-top: 80px;
+      border-radius: 48px 48px 0 0;
+      text-align: center;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .footer-logo {
+      font-size: 1.6rem;
+      font-weight: 700;
+      background: linear-gradient(120deg, #D4AF37, #EED68A);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    hr {
+      width: 60px;
+      margin: 12px auto;
+      border-color: #D4AF3740;
+    }
+
+    @media (max-width: 800px) {
+      .container {
+        padding: 0 20px;
+      }
+      .hero-content h2 {
+        font-size: 2.3rem;
+      }
+      .quiz-section {
+        padding: 28px 20px;
+      }
+      .splash-title {
+        font-size: 2.8rem;
+      }
+      .splash-logo-img {
+        width: 120px;
+        height: 120px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- SPLASH SCREEN - LOGO GIGANTE COM logo.png -->
+<div class="splash-screen" id="splashScreen">
+  <div class="splash-content">
+    <img src="logo.png" alt="ZyRa Logo" class="splash-logo-img" onerror="this.src='https://placehold.co/180x180/D4AF37/white?text=ZyRa'">
+    <div class="splash-title">ZyRa</div>
+    <div class="splash-sub">PERFORMANCE · ESTRATÉGIA · RESULTADO</div>
+  </div>
+  <div class="scroll-indicator">
+    <span>role para explorar</span>
+    <i class="fas fa-chevron-down"></i>
+  </div>
+</div>
+
+<!-- HEADER FIXO (aparece ao descer) -->
+<div class="fixed-header" id="fixedHeader">
+  <div class="navbar">
+    <div class="logo-mini">
+      <img src="logo.png" alt="ZyRa Logo" class="logo-mini-img" onerror="this.src='https://placehold.co/42x42/D4AF37/white?text=Zy'">
+      <div class="logo-mini-text"><h4>ZyRa</h4></div>
+    </div>
+    <div class="nav-links">
+      <a href="#">Início</a>
+      <a href="#servicos">Soluções</a>
+      <a href="#quiz">Diagnóstico</a>
+      <button class="btn-outline-gold" id="scrollQuizBtnHeader">Diagnóstico premium →</button>
+    </div>
+  </div>
+</div>
+
+<!-- CONTEÚDO PRINCIPAL -->
+<div class="main-content" id="mainContent">
+  <main class="container">
+    <!-- Hero -->
+    <div class="hero">
+      <div class="hero-content">
+        <div class="hero-badge"><i class="fas fa-crown"></i> Exclusivo · Método ZyRa</div>
+        <h2>Nós cuidamos do seu negócio para gerar <span>vendas exponenciais</span></h2>
+        <p>Estratégia de marketing sob medida, automação inteligente e growth hacking. Seu negócio merece um time focado em resultados reais.</p>
+        <button class="btn-outline-gold" id="heroQuizBtn" style="background:#D4AF37; color:#121D26; border:none;">FAZER DIAGNÓSTICO GRÁTIS →</button>
+      </div>
+      <div class="hero-image">
+        <img src="470073876_18372287509115742_6904329943705386607_n.jpg">
+      </div>
+    </div>
+
+    <!-- Serviços -->
+    <div id="servicos">
+      <div class="section-title">Como a <span>ZyRa</span> potencializa seu negócio</div>
+      <div class="cards-grid">
+        <div class="card"><div class="card-icon"><i class="fas fa-chart-line"></i></div><h3>Funil de Alta Conversão</h3><p>Jornada do lead ao cliente fiel, aumento de ticket médio e LTV.</p></div>
+        <div class="card"><div class="card-icon"><i class="fas fa-chart-pie"></i></div><h3>Tráfego Inteligente</h3><p>Google Ads, Meta, TikTok Ads + SEO técnico para dominar seu nicho.</p></div>
+        <div class="card"><div class="card-icon"><i class="fas fa-robot"></i></div><h3>Automação & CRM</h3><p>WhatsApp API, e-mail marketing e fluxos automáticos 24h.</p></div>
+        <div class="card"><div class="card-icon"><i class="fas fa-chalkboard-user"></i></div><h3>Data Driven & Reports</h3><p>Dashboards executivos com decisões baseadas em dados reais.</p></div>
+      </div>
+    </div>
+
+    <!-- QUIZ -->
+    <div class="quiz-section" id="quiz">
+      <div class="quiz-header">
+        <h3><i class="fas fa-gem"></i> Diagnóstico ZyRa · Crescimento Acelerado</h3>
+        <p>Responda ao quiz e receba uma análise completa com projeções e plano de ação.</p>
+      </div>
+      <form id="quizForm" class="quiz-form">
+        <div class="form-row">
+          <div class="form-group"><label>Nome completo *</label><input type="text" id="nome" required placeholder="Ex: Lucas Mendes"></div>
+          <div class="form-group"><label>Idade *</label><input type="number" id="idade" required placeholder="32"></div>
+        </div>
+        <div class="form-row">
+          <div class="form-group"><label>CPF *</label><input type="text" id="cpf" required placeholder="000.000.000-00"></div>
+          <div class="form-group"><label>WhatsApp *</label><input type="tel" id="whatsapp" required placeholder="(11) 98888-7777"></div>
+        </div>
+        <div class="form-group"><label>E-mail profissional *</label><input type="email" id="email" required placeholder="contato@seudominio.com"></div>
+
+        <div class="quiz-questions">
+          <div class="question-item"><p> 1. Quantos leads/mês sua empresa gera atualmente?</p>
+            <div class="radio-group"><label><input type="radio" name="leads" value="0-50"> 0-50</label><label><input type="radio" name="leads" value="50-200"> 50-200</label><label><input type="radio" name="leads" value="200+"> 200+</label><label><input type="radio" name="leads" value="nenhum"> Ainda não gero</label></div>
+          </div>
+          <div class="question-item"><p> 2. Qual o principal desafio para alavancar vendas?</p>
+            <div class="radio-group"><label><input type="radio" name="desafio" value="Pouca visibilidade"> Pouca visibilidade online</label><label><input type="radio" name="desafio" value="Leads frios"> Leads desqualificados</label><label><input type="radio" name="desafio" value="Baixa conversão"> Baixa taxa de conversão</label><label><input type="radio" name="desafio" value="Alto CAC"> Alto custo aquisição</label></div>
+          </div>
+          <div class="question-item"><p> 3. Você já investe em marketing digital?</p>
+            <div class="radio-group"><label><input type="radio" name="investe" value="Sim, consistentemente"> Sim, consistentemente</label><label><input type="radio" name="investe" value="Pouco/Testes"> Pouco / testes pontuais</label><label><input type="radio" name="investe" value="Não, quero começar"> Não, quero começar</label></div>
+          </div>
+          <div class="question-item"><p> 4. Qual o maior objetivo com a ZyRa?</p>
+            <div class="radio-group"><label><input type="radio" name="objetivo" value="Aumentar faturamento"> Aumentar faturamento em 3x+</label><label><input type="radio" name="objetivo" value="Automatizar vendas"> Automatizar captação/vendas</label><label><input type="radio" name="objetivo" value="Dominar mercado"> Dominar nicho digital</label></div>
+          </div>
+        </div>
+        <button type="submit" class="btn-primary"><i class="fas fa-chart-line"></i> Gerar diagnóstico estratégico</button>
+      </form>
+
+      <div id="resultArea" class="result-area">
+        <h4 style="display:flex; gap:12px; align-items:center; color:#B8860B;"><i class="fas fa-chart-pie"></i> Diagnóstico ZyRa · Análise de Performance</h4>
+        <div class="charts-container">
+          <div class="chart-box"><canvas id="radarChart" width="300" height="200"></canvas><p style="text-align:center; margin-top:10px;">Índice de Maturidade</p></div>
+          <div class="chart-box"><canvas id="barChart" width="300" height="200"></canvas><p style="text-align:center; margin-top:10px;">Oportunidades</p></div>
+        </div>
+        <div id="diagnosticText" class="diagnostic-message"></div>
+        <p style="margin-top:24px; background:#FCF6E6; padding:14px 20px; border-radius: 32px; color:#7D673C;"><i class="fas fa-envelope-open-text"></i> <strong>Próxima fase:</strong> Nossa equipe entrará em contato por e-mail com um plano de ação personalizado.</p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container footer-inner">
+      <div class="footer-logo">ZyRa</div>
+      <div style="font-size:0.85rem;">© 2026 · Estratégia de Alta Performance</div>
+      <hr>
+      <div style="font-size:0.75rem;">Transformando negócios através de marketing inteligente</div>
+    </div>
+  </footer>
+</div>
+
+<script>
+  (function() {
+    // SPLASH + REVELAÇÃO DO CONTEÚDO
+    const splash = document.getElementById('splashScreen');
+    const mainContent = document.getElementById('mainContent');
+    const fixedHeader = document.getElementById('fixedHeader');
+
+    // Função para desaparecer com o splash e mostrar conteúdo
+    function dismissSplashAndReveal() {
+      if (!splash) return;
+      splash.style.opacity = '0';
+      splash.style.pointerEvents = 'none';
+      setTimeout(() => {
+        splash.style.display = 'none';
+        mainContent.classList.add('visible');
+        // Ativar header fixo após scroll
+        window.addEventListener('scroll', handleHeaderScroll);
+        handleHeaderScroll(); // checa posição inicial
+      }, 800);
+    }
+
+    // Ao rolar a página, exibe header fixo
+    function handleHeaderScroll() {
+      if (window.scrollY > 80) {
+        fixedHeader.classList.add('visible-header');
+      } else {
+        fixedHeader.classList.remove('visible-header');
+      }
+    }
+
+    // Qualquer interação (scroll, clique, touch) ou após 2.5s remove splash
+    let splashRemoved = false;
+    function removeSplash() {
+      if (splashRemoved) return;
+      splashRemoved = true;
+      dismissSplashAndReveal();
+    }
+
+    window.addEventListener('wheel', removeSplash, { once: true });
+    window.addEventListener('touchstart', removeSplash, { once: true });
+    window.addEventListener('click', removeSplash, { once: true });
+    setTimeout(removeSplash, 2600);
+
+    // Scroll para quiz (funciona tanto nos botões do header quanto do hero)
+    const scrollToQuiz = () => document.getElementById('quiz').scrollIntoView({ behavior: 'smooth' });
+    const heroBtn = document.getElementById('heroQuizBtn');
+    const headerBtn = document.getElementById('scrollQuizBtnHeader');
+    if (heroBtn) heroBtn.addEventListener('click', scrollToQuiz);
+    if (headerBtn) headerBtn.addEventListener('click', scrollToQuiz);
+
+    // LÓGICA DOS GRÁFICOS E FORMULÁRIO
+    let radarChartInstance = null, barChartInstance = null;
+
+    function generateChartsAndDiagnostic(respostas, nomeCliente, idade, cpf, whats, email) {
+      let leadsScore = 0, desafioImpacto = 0, maturidadeScore = 0, focoScore = 0;
+      switch(respostas.leads) {
+        case '0-50': leadsScore = 32; break;
+        case '50-200': leadsScore = 62; break;
+        case '200+': leadsScore = 88; break;
+        case 'nenhum': leadsScore = 12; break;
+        default: leadsScore = 38;
+      }
+      switch(respostas.desafio) {
+        case 'Pouca visibilidade': desafioImpacto = 68; break;
+        case 'Leads frios': desafioImpacto = 54; break;
+        case 'Baixa conversão': desafioImpacto = 78; break;
+        case 'Alto CAC': desafioImpacto = 64; break;
+        default: desafioImpacto = 52;
+      }
+      switch(respostas.investe) {
+        case 'Sim, consistentemente': maturidadeScore = 84; break;
+        case 'Pouco/Testes': maturidadeScore = 44; break;
+        case 'Não, quero começar': maturidadeScore = 18; break;
+        default: maturidadeScore = 28;
+      }
+      switch(respostas.objetivo) {
+        case 'Aumentar faturamento': focoScore = 96; break;
+        case 'Automatizar vendas': focoScore = 89; break;
+        case 'Dominar mercado': focoScore = 82; break;
+        default: focoScore = 72;
+      }
+      let potencialGeral = Math.round((leadsScore + desafioImpacto + maturidadeScore + focoScore) / 4);
+      let potencialOtimizado = Math.min(potencialGeral + 24, 98);
+      
+      const radarData = {
+        labels: ['Leads Qualif.', 'Conversão', 'Automação', 'Tráfego'],
+        datasets: [{
+          label: 'Desempenho atual (%)',
+          data: [leadsScore, desafioImpacto, maturidadeScore, (leadsScore+desafioImpacto)/2],
+          backgroundColor: 'rgba(212, 175, 55, 0.18)',
+          borderColor: '#D4AF37',
+          borderWidth: 2.2,
+          pointBackgroundColor: '#B8860B'
+        }]
+      };
+      const barData = {
+        labels: ['Potencial de Escala', 'Necessidade de Estratégia', 'ROI Projetado'],
+        datasets: [{
+          label: 'Índice ZyRa %',
+          data: [potencialOtimizado, (100 - maturidadeScore + 12), Math.min(96, leadsScore+desafioImpacto-5)],
+          backgroundColor: ['#D4AF37', '#E3C47C', '#C49A2C'],
+          borderRadius: 12
+        }]
+      };
+      if (radarChartInstance) radarChartInstance.destroy();
+      if (barChartInstance) barChartInstance.destroy();
+      const radarCtx = document.getElementById('radarChart').getContext('2d');
+      const barCtx = document.getElementById('barChart').getContext('2d');
+      radarChartInstance = new Chart(radarCtx, { type: 'radar', data: radarData, options: { responsive: true, maintainAspectRatio: true, scales: { r: { beginAtZero: true, max: 100 } } } });
+      barChartInstance = new Chart(barCtx, { type: 'bar', data: barData, options: { responsive: true, maintainAspectRatio: true, plugins: { legend: { position: 'top' } } } });
+
+      let mensagem = `✨ ${nomeCliente}, sua maturidade digital está em ${maturidadeScore} pontos. `;
+      if (leadsScore < 40) mensagem += `Geração de leads (${leadsScore}%) é o gargalo → vamos estruturar funis de tráfego. `;
+      else mensagem += `Seu funil já capta bem (${leadsScore}%), vamos acelerar conversão com CRM. `;
+      mensagem += `Desafio: ${respostas.desafio}. Nossa metodologia gera aumento de 53% a 140% nas vendas em até 4 meses. Iremos contatar você via e-mail (${email}) com um roteiro exclusivo. ZyRa cuida de tudo.`;
+      document.getElementById('diagnosticText').innerHTML = `<i class="fas fa-chart-line" style="color:#D4AF37;"></i> ${mensagem}`;
+    }
+
+    const form = document.getElementById('quizForm');
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const nome = document.getElementById('nome').value.trim();
+      const idade = document.getElementById('idade').value.trim();
+      const cpf = document.getElementById('cpf').value.trim();
+      const whatsapp = document.getElementById('whatsapp').value.trim();
+      const email = document.getElementById('email').value.trim();
+      if (!nome || !idade || !cpf || !whatsapp || !email) return alert("Preencha todos os dados.");
+      if (idade < 16 || idade > 110) return alert("Idade inválida.");
+      
+      const leadsRadio = document.querySelector('input[name="leads"]:checked');
+      const desafioRadio = document.querySelector('input[name="desafio"]:checked');
+      const investeRadio = document.querySelector('input[name="investe"]:checked');
+      const objetivoRadio = document.querySelector('input[name="objetivo"]:checked');
+      if (!leadsRadio || !desafioRadio || !investeRadio || !objetivoRadio) return alert("Responda todas as 4 perguntas.");
+
+      const respostas = { leads: leadsRadio.value, desafio: desafioRadio.value, investe: investeRadio.value, objetivo: objetivoRadio.value };
+      generateChartsAndDiagnostic(respostas, nome, idade, cpf, whatsapp, email);
+      document.getElementById('resultArea').style.display = 'block';
+      document.getElementById('quiz').scrollIntoView({ behavior: 'smooth', block: 'end' });
+
+      const formData = new FormData();
+      formData.append('_subject', `Diagnóstico ZyRa - ${nome}`);
+      formData.append('nome_completo', nome);
+      formData.append('idade', idade);
+      formData.append('cpf', cpf);
+      formData.append('whatsapp', whatsapp);
+      formData.append('email', email);
+      formData.append('respostas_diagnostico', JSON.stringify(respostas));
+      formData.append('_captcha', 'false');
+      const targetEmail = "contato@zyramarketing.com";
+      fetch(`https://formsubmit.co/ajax/${targetEmail}`, { method: 'POST', body: formData })
+        .then(() => alert("Pré-agendamento concluído! Nossa equipe entrará em contato por e-mail."))
+        .catch(() => alert("Diagnóstico gerado! Retornaremos em breve."));
+    });
+  })();
+</script>
+</body>
+</html>
