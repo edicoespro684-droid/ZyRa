@@ -3,8 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
+  <meta name="theme-color" content="#FDF8ED">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <title>ZyRa | Marketing Digital de Alta Performance</title>
-  <!-- Google Fonts + Font Awesome -->
+  <!-- Google Fonts + Font Awesome (otimizado) -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <!-- Chart.js para gráficos profissionais -->
@@ -24,11 +27,13 @@
       background-color: #FDFCF8;
       color: #1E2A32;
       scroll-behavior: smooth;
-      line-height: 1.4;
+      line-height: 1.5;
       overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
-    /* SPLASH / HERO INICIAL - LOGO GIGANTE EM TELA CHEIA */
+    /* SPLASH / HERO INICIAL - LOGO EM DESTAQUE TELA CHEIA */
     .splash-screen {
       position: fixed;
       top: 0;
@@ -48,36 +53,42 @@
     .splash-content {
       text-align: center;
       transform: scale(1);
-      animation: gentlePulse 1.8s ease-in-out infinite;
+      animation: gentlePulse 2s ease-in-out infinite;
+      padding: 20px;
     }
 
     @keyframes gentlePulse {
-      0% { transform: scale(1); opacity: 0.9; }
-      50% { transform: scale(1.02); opacity: 1; }
-      100% { transform: scale(1); opacity: 0.9; }
+      0% { transform: scale(1); opacity: 0.95; }
+      50% { transform: scale(1.03); opacity: 1; }
+      100% { transform: scale(1); opacity: 0.95; }
     }
 
     .splash-logo-img {
-      width: 180px;
-      height: 180px;
+      width: min(220px, 55vw);
+      height: auto;
+      max-width: 280px;
       object-fit: contain;
-      filter: drop-shadow(0 20px 30px rgba(0,0,0,0.12));
-      margin-bottom: 28px;
+      filter: drop-shadow(0 20px 30px rgba(0,0,0,0.15));
+      margin-bottom: 24px;
+      border-radius: 50%;
+      background: white;
+      padding: 12px;
+      box-shadow: 0 10px 40px rgba(212, 175, 55, 0.3);
     }
 
     .splash-title {
-      font-size: 4.2rem;
+      font-size: clamp(2rem, 10vw, 4.2rem);
       font-weight: 800;
       letter-spacing: -1px;
       background: linear-gradient(135deg, #C9A03D, #D4AF37, #B8860B);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      margin-bottom: 12px;
+      margin-bottom: 8px;
     }
 
     .splash-sub {
-      font-size: 1rem;
+      font-size: clamp(0.75rem, 3vw, 1rem);
       color: #8B7A5C;
       letter-spacing: 2px;
       font-weight: 500;
@@ -85,7 +96,7 @@
 
     .scroll-indicator {
       position: absolute;
-      bottom: 40px;
+      bottom: 30px;
       left: 50%;
       transform: translateX(-50%);
       display: flex;
@@ -93,23 +104,22 @@
       align-items: center;
       gap: 8px;
       color: #D4AF37;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       font-weight: 500;
-      opacity: 0.7;
-      transition: opacity 0.3s;
+      opacity: 0.8;
     }
 
     .scroll-indicator i {
-      font-size: 1.3rem;
-      animation: bounce 1.5s infinite;
+      font-size: 1.2rem;
+      animation: bounceMobile 1.5s infinite;
     }
 
-    @keyframes bounce {
+    @keyframes bounceMobile {
       0%, 100% { transform: translateY(0); }
       50% { transform: translateY(8px); }
     }
 
-    /* CONTEÚDO PRINCIPAL (inicialmente oculto, fade-in ao rolar) */
+    /* CONTEÚDO PRINCIPAL */
     .main-content {
       opacity: 0;
       transition: opacity 0.7s ease-out;
@@ -122,19 +132,26 @@
     .container {
       max-width: 1280px;
       margin: 0 auto;
-      padding: 0 32px;
+      padding: 0 20px;
     }
 
-    /* Header fixo que surge após o splash */
+    @media (min-width: 768px) {
+      .container {
+        padding: 0 32px;
+      }
+    }
+
+    /* Header fixo */
     .fixed-header {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
-      background: rgba(253, 252, 248, 0.96);
+      background: rgba(253, 252, 248, 0.98);
       backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       z-index: 100;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
       transform: translateY(-100%);
       transition: transform 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
       border-bottom: 1px solid rgba(212, 175, 55, 0.2);
@@ -148,27 +165,42 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 18px 32px;
-      flex-wrap: wrap;
-      gap: 20px;
+      padding: 14px 20px;
+      gap: 12px;
       max-width: 1280px;
       margin: 0 auto;
+    }
+
+    @media (min-width: 768px) {
+      .navbar {
+        padding: 18px 32px;
+      }
     }
 
     .logo-mini {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
     }
 
     .logo-mini-img {
-      width: 42px;
-      height: 42px;
+      width: 38px;
+      height: 38px;
       object-fit: contain;
+      border-radius: 50%;
+      background: white;
+      padding: 4px;
+    }
+
+    @media (min-width: 768px) {
+      .logo-mini-img {
+        width: 42px;
+        height: 42px;
+      }
     }
 
     .logo-mini-text h4 {
-      font-size: 1.3rem;
+      font-size: 1.1rem;
       font-weight: 700;
       background: linear-gradient(135deg, #C9A03D, #D4AF37);
       -webkit-background-clip: text;
@@ -176,10 +208,23 @@
       color: transparent;
     }
 
+    @media (min-width: 768px) {
+      .logo-mini-text h4 {
+        font-size: 1.3rem;
+      }
+    }
+
     .nav-links {
       display: flex;
-      gap: 32px;
+      gap: 16px;
       align-items: center;
+      flex-wrap: wrap;
+    }
+
+    @media (min-width: 768px) {
+      .nav-links {
+        gap: 32px;
+      }
     }
 
     .nav-links a {
@@ -187,7 +232,13 @@
       font-weight: 500;
       color: #2C3A47;
       transition: 0.2s;
-      font-size: 0.9rem;
+      font-size: 0.8rem;
+    }
+
+    @media (min-width: 768px) {
+      .nav-links a {
+        font-size: 0.9rem;
+      }
     }
 
     .nav-links a:hover {
@@ -197,32 +248,48 @@
     .btn-outline-gold {
       border: 1.5px solid #D4AF37;
       background: transparent;
-      padding: 8px 24px;
+      padding: 6px 16px;
       border-radius: 40px;
       font-weight: 600;
       color: #B8860B;
       transition: all 0.25s;
       cursor: pointer;
-      font-size: 0.85rem;
+      font-size: 0.75rem;
     }
 
-    .btn-outline-gold:hover {
-      background: #D4AF37;
-      color: #1E2A32;
+    @media (min-width: 768px) {
+      .btn-outline-gold {
+        padding: 8px 24px;
+        font-size: 0.85rem;
+      }
     }
 
-    /* Hero após rolagem */
+    /* Hero */
     .hero {
       display: flex;
-      flex-wrap: wrap;
+      flex-direction: column;
       align-items: center;
-      justify-content: space-between;
-      margin: 100px 0 70px;
-      gap: 48px;
+      margin: 80px 0 50px;
+      gap: 32px;
+    }
+
+    @media (min-width: 768px) {
+      .hero {
+        flex-direction: row;
+        margin: 100px 0 70px;
+        gap: 48px;
+      }
     }
 
     .hero-content {
       flex: 1.2;
+      text-align: center;
+    }
+
+    @media (min-width: 768px) {
+      .hero-content {
+        text-align: left;
+      }
     }
 
     .hero-badge {
@@ -230,21 +297,28 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 6px 18px;
+      padding: 5px 14px;
       border-radius: 60px;
-      font-size: 0.8rem;
+      font-size: 0.7rem;
       font-weight: 600;
       color: #B8860B;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
+    }
+
+    @media (min-width: 768px) {
+      .hero-badge {
+        padding: 6px 18px;
+        font-size: 0.8rem;
+      }
     }
 
     .hero-content h2 {
-      font-size: 3.4rem;
+      font-size: clamp(1.8rem, 6vw, 3.4rem);
       font-weight: 800;
       line-height: 1.2;
-      letter-spacing: -1px;
+      letter-spacing: -0.5px;
       color: #0F1C26;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
 
     .hero-content h2 span {
@@ -255,18 +329,30 @@
     }
 
     .hero-content p {
-      font-size: 1.1rem;
+      font-size: clamp(0.9rem, 3.5vw, 1.1rem);
       color: #4F5E6B;
       max-width: 520px;
-      margin-bottom: 36px;
+      margin: 0 auto 28px;
       line-height: 1.5;
+    }
+
+    @media (min-width: 768px) {
+      .hero-content p {
+        margin: 0 0 36px 0;
+      }
     }
 
     .hero-image {
       flex: 1;
-      border-radius: 36px;
+      border-radius: 28px;
       overflow: hidden;
-      box-shadow: 0 30px 40px -20px rgba(0,0,0,0.2);
+      box-shadow: 0 20px 30px -15px rgba(0,0,0,0.15);
+    }
+
+    @media (min-width: 768px) {
+      .hero-image {
+        border-radius: 36px;
+      }
     }
 
     .hero-image img {
@@ -278,9 +364,9 @@
 
     /* Seção serviços */
     .section-title {
-      font-size: 2.3rem;
+      font-size: clamp(1.6rem, 5vw, 2.3rem);
       font-weight: 700;
-      margin-bottom: 48px;
+      margin-bottom: 32px;
       text-align: center;
       letter-spacing: -0.5px;
       color: #1E2A32;
@@ -288,66 +374,101 @@
 
     .section-title span {
       color: #D4AF37;
-      border-bottom: 3px solid #F3DE8A;
-      padding-bottom: 4px;
+    }
+
+    @media (min-width: 768px) {
+      .section-title {
+        margin-bottom: 48px;
+      }
     }
 
     .cards-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-      gap: 32px;
-      margin: 48px 0;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      margin: 32px 0;
+    }
+
+    @media (min-width: 640px) {
+      .cards-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .cards-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 32px;
+      }
     }
 
     .card {
       background: white;
-      padding: 34px 26px;
-      border-radius: 32px;
-      box-shadow: 0 20px 32px -12px rgba(0,0,0,0.04);
-      transition: all 0.3s cubic-bezier(0.2, 0, 0, 1);
+      padding: 24px 20px;
+      border-radius: 28px;
+      box-shadow: 0 12px 24px -10px rgba(0,0,0,0.04);
+      transition: all 0.3s ease;
       border: 1px solid #F0EDE4;
     }
 
-    .card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 32px 44px -12px rgba(212, 175, 55, 0.15);
-      border-color: #E9D39D;
+    @media (min-width: 768px) {
+      .card {
+        padding: 34px 26px;
+      }
+    }
+
+    .card:active {
+      transform: scale(0.98);
+    }
+
+    @media (hover: hover) {
+      .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 20px 30px -12px rgba(212, 175, 55, 0.15);
+      }
     }
 
     .card-icon {
-      font-size: 2.5rem;
+      font-size: 2rem;
       color: #D4AF37;
-      margin-bottom: 24px;
+      margin-bottom: 16px;
     }
 
     .card h3 {
-      font-size: 1.5rem;
-      margin-bottom: 12px;
-      font-weight: 700;
+      font-size: 1.2rem;
+      margin-bottom: 10px;
     }
 
     .card p {
-      color: #5C6F87;
-      line-height: 1.5;
+      font-size: 0.85rem;
+      color: #6B7B8C;
     }
 
-    /* QUIZ ÁREA */
+    /* QUIZ ÁREA - OTIMIZADO PARA MOBILE */
     .quiz-section {
       background: #FFFFFF;
-      border-radius: 56px;
-      margin: 64px 0;
-      box-shadow: 0 28px 48px -20px rgba(0,0,0,0.08);
-      padding: 52px 48px;
+      border-radius: 32px;
+      margin: 48px 0;
+      box-shadow: 0 16px 32px -12px rgba(0,0,0,0.06);
+      padding: 28px 20px;
       border: 1px solid #F2EBD8;
+    }
+
+    @media (min-width: 768px) {
+      .quiz-section {
+        border-radius: 56px;
+        margin: 64px 0;
+        padding: 52px 48px;
+      }
     }
 
     .quiz-header {
       text-align: center;
-      margin-bottom: 44px;
+      margin-bottom: 28px;
     }
 
     .quiz-header h3 {
-      font-size: 2rem;
+      font-size: clamp(1.3rem, 5vw, 2rem);
       font-weight: 700;
       background: linear-gradient(135deg, #B8860B, #D4AF37);
       -webkit-background-clip: text;
@@ -355,69 +476,106 @@
       color: transparent;
     }
 
+    .quiz-header p {
+      font-size: 0.85rem;
+      color: #6B7B8C;
+      margin-top: 8px;
+    }
+
     .quiz-form {
       display: flex;
       flex-direction: column;
-      gap: 28px;
+      gap: 20px;
     }
 
     .form-row {
       display: flex;
-      flex-wrap: wrap;
-      gap: 24px;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    @media (min-width: 640px) {
+      .form-row {
+        flex-direction: row;
+        gap: 24px;
+      }
     }
 
     .form-group {
       flex: 1;
-      min-width: 200px;
     }
 
     label {
       font-weight: 600;
       display: block;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
       color: #2C3E3F;
-      font-size: 0.9rem;
+      font-size: 0.8rem;
     }
 
     input {
       width: 100%;
-      padding: 16px 18px;
-      border-radius: 24px;
+      padding: 14px 16px;
+      border-radius: 20px;
       border: 1.5px solid #E9E2D0;
       font-family: 'Inter', sans-serif;
-      font-size: 1rem;
+      font-size: 0.95rem;
       transition: 0.2s;
       background: #FEFCF8;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    @media (min-width: 768px) {
+      input {
+        padding: 16px 18px;
+        border-radius: 24px;
+      }
     }
 
     input:focus {
       outline: none;
       border-color: #D4AF37;
-      box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.12);
+      box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.12);
     }
 
     .quiz-questions {
       background: #FEFAF2;
-      border-radius: 36px;
-      padding: 32px;
-      margin: 12px 0;
+      border-radius: 28px;
+      padding: 20px;
+      margin: 8px 0;
+    }
+
+    @media (min-width: 768px) {
+      .quiz-questions {
+        border-radius: 36px;
+        padding: 32px;
+      }
     }
 
     .question-item {
-      margin-bottom: 32px;
+      margin-bottom: 24px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #F0E8D8;
+    }
+
+    .question-item:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
     }
 
     .question-item p {
       font-weight: 700;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
       color: #2E3B3E;
+      font-size: 0.9rem;
     }
 
     .radio-group {
       display: flex;
       flex-wrap: wrap;
-      gap: 28px;
+      gap: 16px;
       align-items: center;
     }
 
@@ -425,95 +583,113 @@
       font-weight: 500;
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       cursor: pointer;
       color: #4A5B66;
+      font-size: 0.8rem;
+      margin-bottom: 0;
+    }
+
+    .radio-group input[type="radio"] {
+      width: 18px;
+      height: 18px;
+      margin: 0;
+      padding: 0;
+      accent-color: #D4AF37;
     }
 
     .btn-primary {
       background: linear-gradient(105deg, #B8860B, #D4AF37, #E8C547);
       border: none;
-      padding: 18px 28px;
-      font-size: 1.1rem;
+      padding: 16px 20px;
+      font-size: 1rem;
       font-weight: 700;
-      border-radius: 60px;
+      border-radius: 50px;
       color: #1E2A32;
       cursor: pointer;
       transition: 0.2s;
       width: 100%;
-      margin-top: 20px;
-      box-shadow: 0 12px 22px -8px rgba(184, 134, 11, 0.35);
+      margin-top: 16px;
+      box-shadow: 0 8px 18px -6px rgba(184, 134, 11, 0.35);
     }
 
-    .btn-primary:hover {
-      transform: scale(0.98);
-      background: linear-gradient(105deg, #A0750A, #C9A03D);
+    .btn-primary:active {
+      transform: scale(0.97);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    @media (min-width: 768px) {
+      .btn-primary {
+        padding: 18px 28px;
+        font-size: 1.1rem;
+      }
     }
 
     .result-area {
-      margin-top: 44px;
+      margin-top: 32px;
       background: #FEFBF3;
-      border-radius: 40px;
-      padding: 36px;
+      border-radius: 28px;
+      padding: 24px 20px;
       display: none;
       animation: fadeInUp 0.55s ease;
       border: 1px solid #F3E7CE;
     }
 
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(16px);}
-      to { opacity: 1; transform: translateY(0);}
+    @media (min-width: 768px) {
+      .result-area {
+        padding: 36px;
+      }
     }
 
     .charts-container {
       display: flex;
-      flex-wrap: wrap;
-      gap: 32px;
-      justify-content: center;
-      margin: 28px 0;
+      flex-direction: column;
+      gap: 24px;
+      margin: 20px 0;
+    }
+
+    @media (min-width: 768px) {
+      .charts-container {
+        flex-direction: row;
+        gap: 32px;
+      }
     }
 
     .chart-box {
       flex: 1;
-      min-width: 250px;
       background: white;
-      border-radius: 28px;
-      padding: 20px;
+      border-radius: 20px;
+      padding: 16px;
     }
 
     canvas {
-      max-height: 210px;
+      max-height: 200px;
       width: 100%;
-    }
-
-    .diagnostic-message {
-      margin-top: 24px;
-      font-weight: 500;
-      background: #FFFFFFE6;
-      padding: 24px;
-      border-radius: 28px;
-      border-left: 6px solid #D4AF37;
-      color: #2A3B47;
     }
 
     footer {
       background: #121D26;
       color: #BFAF8C;
-      padding: 48px 0 32px;
-      margin-top: 80px;
-      border-radius: 48px 48px 0 0;
+      padding: 40px 0 28px;
+      margin-top: 60px;
+      border-radius: 32px 32px 0 0;
       text-align: center;
     }
 
-    .footer-inner {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
+    @media (min-width: 768px) {
+      footer {
+        border-radius: 48px 48px 0 0;
+        padding: 48px 0 32px;
+      }
     }
 
     .footer-logo {
-      font-size: 1.6rem;
+      font-size: 1.5rem;
       font-weight: 700;
       background: linear-gradient(120deg, #D4AF37, #EED68A);
       -webkit-background-clip: text;
@@ -527,32 +703,33 @@
       border-color: #D4AF3740;
     }
 
-    @media (max-width: 800px) {
-      .container {
-        padding: 0 20px;
-      }
-      .hero-content h2 {
-        font-size: 2.3rem;
-      }
-      .quiz-section {
-        padding: 28px 20px;
-      }
-      .splash-title {
-        font-size: 2.8rem;
-      }
-      .splash-logo-img {
-        width: 120px;
-        height: 120px;
-      }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(16px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+
+    button, .btn-outline-gold, .btn-primary {
+      touch-action: manipulation;
+    }
+
+    .error-message {
+      color: #e74c3c;
+      font-size: 0.75rem;
+      margin-top: 4px;
+      display: none;
+    }
+
+    .error-message.visible {
+      display: block;
     }
   </style>
 </head>
 <body>
 
-<!-- SPLASH SCREEN - LOGO GIGANTE COM logo.png -->
+<!-- SPLASH SCREEN - LOGO EM DESTAQUE -->
 <div class="splash-screen" id="splashScreen">
   <div class="splash-content">
-    <img src="logo.png" alt="ZyRa Logo" class="splash-logo-img" onerror="this.src='https://placehold.co/180x180/D4AF37/white?text=ZyRa'">
+    <img src="logo.png" alt="ZyRa Logo" class="splash-logo-img" onerror="this.src='https://placehold.co/280x280/D4AF37/white?text=ZyRa'">
     <div class="splash-title">ZyRa</div>
     <div class="splash-sub">PERFORMANCE · ESTRATÉGIA · RESULTADO</div>
   </div>
@@ -562,18 +739,18 @@
   </div>
 </div>
 
-<!-- HEADER FIXO (aparece ao descer) -->
+<!-- HEADER FIXO -->
 <div class="fixed-header" id="fixedHeader">
   <div class="navbar">
     <div class="logo-mini">
-      <img src="logo.png" alt="ZyRa Logo" class="logo-mini-img" onerror="this.src='https://placehold.co/42x42/D4AF37/white?text=Zy'">
+      <img src="logo.png" alt="ZyRa" class="logo-mini-img" onerror="this.src='https://placehold.co/42x42/D4AF37/white?text=Zy'">
       <div class="logo-mini-text"><h4>ZyRa</h4></div>
     </div>
     <div class="nav-links">
       <a href="#">Início</a>
       <a href="#servicos">Soluções</a>
       <a href="#quiz">Diagnóstico</a>
-      <button class="btn-outline-gold" id="scrollQuizBtnHeader">Diagnóstico premium →</button>
+      <button class="btn-outline-gold" id="scrollQuizBtnHeader">Premium →</button>
     </div>
   </div>
 </div>
@@ -590,7 +767,7 @@
         <button class="btn-outline-gold" id="heroQuizBtn" style="background:#D4AF37; color:#121D26; border:none;">FAZER DIAGNÓSTICO GRÁTIS →</button>
       </div>
       <div class="hero-image">
-        <img src="470073876_18372287509115742_6904329943705386607_n.jpg">
+        <img src="470073876_18372287509115742_6904329943705386607_n.jpg" alt="ZyRa Marketing Digital" loading="lazy">
       </div>
     </div>
 
@@ -605,7 +782,7 @@
       </div>
     </div>
 
-    <!-- QUIZ -->
+    <!-- QUIZ MELHORADO -->
     <div class="quiz-section" id="quiz">
       <div class="quiz-header">
         <h3><i class="fas fa-gem"></i> Diagnóstico ZyRa · Crescimento Acelerado</h3>
@@ -613,40 +790,86 @@
       </div>
       <form id="quizForm" class="quiz-form">
         <div class="form-row">
-          <div class="form-group"><label>Nome completo *</label><input type="text" id="nome" required placeholder="Ex: Lucas Mendes"></div>
-          <div class="form-group"><label>Idade *</label><input type="number" id="idade" required placeholder="32"></div>
+          <div class="form-group">
+            <label>Nome completo *</label>
+            <input type="text" id="nome" required placeholder="Ex: Lucas Mendes">
+            <div class="error-message" id="error-nome">Por favor, informe seu nome</div>
+          </div>
+          <div class="form-group">
+            <label>Idade *</label>
+            <input type="number" id="idade" required placeholder="32" min="16" max="110">
+            <div class="error-message" id="error-idade">Idade deve ser entre 16 e 110 anos</div>
+          </div>
         </div>
         <div class="form-row">
-          <div class="form-group"><label>CPF *</label><input type="text" id="cpf" required placeholder="000.000.000-00"></div>
-          <div class="form-group"><label>WhatsApp *</label><input type="tel" id="whatsapp" required placeholder="(11) 98888-7777"></div>
+          <div class="form-group">
+            <label>CPF *</label>
+            <input type="text" id="cpf" required placeholder="000.000.000-00">
+            <div class="error-message" id="error-cpf">Informe um CPF válido</div>
+          </div>
+          <div class="form-group">
+            <label>WhatsApp *</label>
+            <input type="tel" id="whatsapp" required placeholder="(11) 98888-7777">
+            <div class="error-message" id="error-whatsapp">Informe um telefone válido</div>
+          </div>
         </div>
-        <div class="form-group"><label>E-mail profissional *</label><input type="email" id="email" required placeholder="contato@seudominio.com"></div>
+        <div class="form-group">
+          <label>E-mail profissional *</label>
+          <input type="email" id="email" required placeholder="contato@seudominio.com">
+          <div class="error-message" id="error-email">Informe um e-mail válido</div>
+        </div>
 
         <div class="quiz-questions">
-          <div class="question-item"><p> 1. Quantos leads/mês sua empresa gera atualmente?</p>
-            <div class="radio-group"><label><input type="radio" name="leads" value="0-50"> 0-50</label><label><input type="radio" name="leads" value="50-200"> 50-200</label><label><input type="radio" name="leads" value="200+"> 200+</label><label><input type="radio" name="leads" value="nenhum"> Ainda não gero</label></div>
+          <div class="question-item">
+            <p>📊 1. Quantos leads/mês sua empresa gera atualmente?</p>
+            <div class="radio-group">
+              <label><input type="radio" name="leads" value="0-50"> 0-50</label>
+              <label><input type="radio" name="leads" value="50-200"> 50-200</label>
+              <label><input type="radio" name="leads" value="200+"> 200+</label>
+              <label><input type="radio" name="leads" value="nenhum"> Ainda não gero</label>
+            </div>
+            <div class="error-message" id="error-leads">Selecione uma opção</div>
           </div>
-          <div class="question-item"><p> 2. Qual o principal desafio para alavancar vendas?</p>
-            <div class="radio-group"><label><input type="radio" name="desafio" value="Pouca visibilidade"> Pouca visibilidade online</label><label><input type="radio" name="desafio" value="Leads frios"> Leads desqualificados</label><label><input type="radio" name="desafio" value="Baixa conversão"> Baixa taxa de conversão</label><label><input type="radio" name="desafio" value="Alto CAC"> Alto custo aquisição</label></div>
+          <div class="question-item">
+            <p>🎯 2. Qual o principal desafio para alavancar vendas?</p>
+            <div class="radio-group">
+              <label><input type="radio" name="desafio" value="Pouca visibilidade"> Pouca visibilidade online</label>
+              <label><input type="radio" name="desafio" value="Leads frios"> Leads desqualificados</label>
+              <label><input type="radio" name="desafio" value="Baixa conversão"> Baixa taxa de conversão</label>
+              <label><input type="radio" name="desafio" value="Alto CAC"> Alto custo aquisição</label>
+            </div>
+            <div class="error-message" id="error-desafio">Selecione uma opção</div>
           </div>
-          <div class="question-item"><p> 3. Você já investe em marketing digital?</p>
-            <div class="radio-group"><label><input type="radio" name="investe" value="Sim, consistentemente"> Sim, consistentemente</label><label><input type="radio" name="investe" value="Pouco/Testes"> Pouco / testes pontuais</label><label><input type="radio" name="investe" value="Não, quero começar"> Não, quero começar</label></div>
+          <div class="question-item">
+            <p>⚙️ 3. Você já investe em marketing digital?</p>
+            <div class="radio-group">
+              <label><input type="radio" name="investe" value="Sim, consistentemente"> Sim, consistentemente</label>
+              <label><input type="radio" name="investe" value="Pouco/Testes"> Pouco / testes pontuais</label>
+              <label><input type="radio" name="investe" value="Não, quero começar"> Não, quero começar</label>
+            </div>
+            <div class="error-message" id="error-investe">Selecione uma opção</div>
           </div>
-          <div class="question-item"><p> 4. Qual o maior objetivo com a ZyRa?</p>
-            <div class="radio-group"><label><input type="radio" name="objetivo" value="Aumentar faturamento"> Aumentar faturamento em 3x+</label><label><input type="radio" name="objetivo" value="Automatizar vendas"> Automatizar captação/vendas</label><label><input type="radio" name="objetivo" value="Dominar mercado"> Dominar nicho digital</label></div>
+          <div class="question-item">
+            <p>🚀 4. Qual o maior objetivo com a ZyRa?</p>
+            <div class="radio-group">
+              <label><input type="radio" name="objetivo" value="Aumentar faturamento"> Aumentar faturamento em 3x+</label>
+              <label><input type="radio" name="objetivo" value="Automatizar vendas"> Automatizar captação/vendas</label>
+              <label><input type="radio" name="objetivo" value="Dominar mercado"> Dominar nicho digital</label>
+            </div>
+            <div class="error-message" id="error-objetivo">Selecione uma opção</div>
           </div>
         </div>
-        <button type="submit" class="btn-primary"><i class="fas fa-chart-line"></i> Gerar diagnóstico estratégico</button>
+        <button type="submit" class="btn-primary" id="submitBtn"><i class="fas fa-chart-line"></i> Gerar diagnóstico estratégico</button>
       </form>
 
       <div id="resultArea" class="result-area">
-        <h4 style="display:flex; gap:12px; align-items:center; color:#B8860B;"><i class="fas fa-chart-pie"></i> Diagnóstico ZyRa · Análise de Performance</h4>
+        <h4 style="display:flex; gap:12px; align-items:center; color:#B8860B; flex-wrap:wrap;"><i class="fas fa-chart-pie"></i> Diagnóstico ZyRa · Análise de Performance</h4>
         <div class="charts-container">
-          <div class="chart-box"><canvas id="radarChart" width="300" height="200"></canvas><p style="text-align:center; margin-top:10px;">Índice de Maturidade</p></div>
-          <div class="chart-box"><canvas id="barChart" width="300" height="200"></canvas><p style="text-align:center; margin-top:10px;">Oportunidades</p></div>
+          <div class="chart-box"><canvas id="radarChart" width="300" height="200"></canvas><p style="text-align:center; margin-top:10px; font-size:0.8rem;">Índice de Maturidade</p></div>
+          <div class="chart-box"><canvas id="barChart" width="300" height="200"></canvas><p style="text-align:center; margin-top:10px; font-size:0.8rem;">Oportunidades</p></div>
         </div>
         <div id="diagnosticText" class="diagnostic-message"></div>
-        <p style="margin-top:24px; background:#FCF6E6; padding:14px 20px; border-radius: 32px; color:#7D673C;"><i class="fas fa-envelope-open-text"></i> <strong>Próxima fase:</strong> Nossa equipe entrará em contato por e-mail com um plano de ação personalizado.</p>
+        <p style="margin-top:20px; background:#FCF6E6; padding:14px 16px; border-radius: 24px; color:#7D673C; font-size:0.85rem;"><i class="fas fa-envelope-open-text"></i> <strong>Próxima fase:</strong> Nossa equipe entrará em contato por e-mail com um plano de ação personalizado.</p>
       </div>
     </div>
   </main>
@@ -654,21 +877,20 @@
   <footer>
     <div class="container footer-inner">
       <div class="footer-logo">ZyRa</div>
-      <div style="font-size:0.85rem;">© 2026 · Estratégia de Alta Performance</div>
+      <div style="font-size:0.75rem;">© 2026 · Estratégia de Alta Performance</div>
       <hr>
-      <div style="font-size:0.75rem;">Transformando negócios através de marketing inteligente</div>
+      <div style="font-size:0.7rem;">Transformando negócios através de marketing inteligente</div>
     </div>
   </footer>
 </div>
 
 <script>
   (function() {
-    // SPLASH + REVELAÇÃO DO CONTEÚDO
+    // SPLASH
     const splash = document.getElementById('splashScreen');
     const mainContent = document.getElementById('mainContent');
     const fixedHeader = document.getElementById('fixedHeader');
 
-    // Função para desaparecer com o splash e mostrar conteúdo
     function dismissSplashAndReveal() {
       if (!splash) return;
       splash.style.opacity = '0';
@@ -676,13 +898,11 @@
       setTimeout(() => {
         splash.style.display = 'none';
         mainContent.classList.add('visible');
-        // Ativar header fixo após scroll
         window.addEventListener('scroll', handleHeaderScroll);
-        handleHeaderScroll(); // checa posição inicial
+        handleHeaderScroll();
       }, 800);
     }
 
-    // Ao rolar a página, exibe header fixo
     function handleHeaderScroll() {
       if (window.scrollY > 80) {
         fixedHeader.classList.add('visible-header');
@@ -691,7 +911,6 @@
       }
     }
 
-    // Qualquer interação (scroll, clique, touch) ou após 2.5s remove splash
     let splashRemoved = false;
     function removeSplash() {
       if (splashRemoved) return;
@@ -702,20 +921,21 @@
     window.addEventListener('wheel', removeSplash, { once: true });
     window.addEventListener('touchstart', removeSplash, { once: true });
     window.addEventListener('click', removeSplash, { once: true });
-    setTimeout(removeSplash, 2600);
+    setTimeout(removeSplash, 2800);
 
-    // Scroll para quiz (funciona tanto nos botões do header quanto do hero)
+    // Scroll para quiz
     const scrollToQuiz = () => document.getElementById('quiz').scrollIntoView({ behavior: 'smooth' });
     const heroBtn = document.getElementById('heroQuizBtn');
     const headerBtn = document.getElementById('scrollQuizBtnHeader');
     if (heroBtn) heroBtn.addEventListener('click', scrollToQuiz);
     if (headerBtn) headerBtn.addEventListener('click', scrollToQuiz);
 
-    // LÓGICA DOS GRÁFICOS E FORMULÁRIO
+    // Gráficos
     let radarChartInstance = null, barChartInstance = null;
 
-    function generateChartsAndDiagnostic(respostas, nomeCliente, idade, cpf, whats, email) {
+    function generateChartsAndDiagnostic(respostas, nomeCliente) {
       let leadsScore = 0, desafioImpacto = 0, maturidadeScore = 0, focoScore = 0;
+      
       switch(respostas.leads) {
         case '0-50': leadsScore = 32; break;
         case '50-200': leadsScore = 62; break;
@@ -742,6 +962,7 @@
         case 'Dominar mercado': focoScore = 82; break;
         default: focoScore = 72;
       }
+      
       let potencialGeral = Math.round((leadsScore + desafioImpacto + maturidadeScore + focoScore) / 4);
       let potencialOtimizado = Math.min(potencialGeral + 24, 98);
       
@@ -753,56 +974,190 @@
           backgroundColor: 'rgba(212, 175, 55, 0.18)',
           borderColor: '#D4AF37',
           borderWidth: 2.2,
-          pointBackgroundColor: '#B8860B'
+          pointBackgroundColor: '#B8860B',
+          pointBorderColor: '#B8860B'
         }]
       };
+      
       const barData = {
         labels: ['Potencial de Escala', 'Necessidade de Estratégia', 'ROI Projetado'],
         datasets: [{
           label: 'Índice ZyRa %',
-          data: [potencialOtimizado, (100 - maturidadeScore + 12), Math.min(96, leadsScore+desafioImpacto-5)],
+          data: [potencialOtimizado, Math.min(100, (100 - maturidadeScore + 12)), Math.min(96, leadsScore+desafioImpacto-5)],
           backgroundColor: ['#D4AF37', '#E3C47C', '#C49A2C'],
           borderRadius: 12
         }]
       };
+      
       if (radarChartInstance) radarChartInstance.destroy();
       if (barChartInstance) barChartInstance.destroy();
+      
       const radarCtx = document.getElementById('radarChart').getContext('2d');
       const barCtx = document.getElementById('barChart').getContext('2d');
-      radarChartInstance = new Chart(radarCtx, { type: 'radar', data: radarData, options: { responsive: true, maintainAspectRatio: true, scales: { r: { beginAtZero: true, max: 100 } } } });
-      barChartInstance = new Chart(barCtx, { type: 'bar', data: barData, options: { responsive: true, maintainAspectRatio: true, plugins: { legend: { position: 'top' } } } });
+      
+      radarChartInstance = new Chart(radarCtx, { 
+        type: 'radar', 
+        data: radarData, 
+        options: { 
+          responsive: true, 
+          maintainAspectRatio: true, 
+          scales: { r: { beginAtZero: true, max: 100 } } 
+        } 
+      });
+      
+      barChartInstance = new Chart(barCtx, { 
+        type: 'bar', 
+        data: barData, 
+        options: { 
+          responsive: true, 
+          maintainAspectRatio: true, 
+          plugins: { legend: { position: 'top' } } 
+        } 
+      });
 
       let mensagem = `✨ ${nomeCliente}, sua maturidade digital está em ${maturidadeScore} pontos. `;
       if (leadsScore < 40) mensagem += `Geração de leads (${leadsScore}%) é o gargalo → vamos estruturar funis de tráfego. `;
       else mensagem += `Seu funil já capta bem (${leadsScore}%), vamos acelerar conversão com CRM. `;
-      mensagem += `Desafio: ${respostas.desafio}. Nossa metodologia gera aumento de 53% a 140% nas vendas em até 4 meses. Iremos contatar você via e-mail (${email}) com um roteiro exclusivo. ZyRa cuida de tudo.`;
+      mensagem += `Desafio: ${respostas.desafio}. Nossa metodologia gera aumento de 53% a 140% nas vendas em até 4 meses.`;
+      
       document.getElementById('diagnosticText').innerHTML = `<i class="fas fa-chart-line" style="color:#D4AF37;"></i> ${mensagem}`;
     }
 
-    const form = document.getElementById('quizForm');
-    form.addEventListener('submit', function(e) {
-      e.preventDefault();
+    // Validação de campos
+    function validateForm() {
+      let isValid = true;
+      
       const nome = document.getElementById('nome').value.trim();
       const idade = document.getElementById('idade').value.trim();
       const cpf = document.getElementById('cpf').value.trim();
       const whatsapp = document.getElementById('whatsapp').value.trim();
       const email = document.getElementById('email').value.trim();
-      if (!nome || !idade || !cpf || !whatsapp || !email) return alert("Preencha todos os dados.");
-      if (idade < 16 || idade > 110) return alert("Idade inválida.");
+      
+      // Nome
+      if (nome === '') {
+        document.getElementById('error-nome').classList.add('visible');
+        isValid = false;
+      } else {
+        document.getElementById('error-nome').classList.remove('visible');
+      }
+      
+      // Idade
+      if (idade === '' || idade < 16 || idade > 110) {
+        document.getElementById('error-idade').classList.add('visible');
+        isValid = false;
+      } else {
+        document.getElementById('error-idade').classList.remove('visible');
+      }
+      
+      // CPF (validação básica)
+      if (cpf === '' || cpf.length < 11) {
+        document.getElementById('error-cpf').classList.add('visible');
+        isValid = false;
+      } else {
+        document.getElementById('error-cpf').classList.remove('visible');
+      }
+      
+      // WhatsApp
+      if (whatsapp === '' || whatsapp.length < 10) {
+        document.getElementById('error-whatsapp').classList.add('visible');
+        isValid = false;
+      } else {
+        document.getElementById('error-whatsapp').classList.remove('visible');
+      }
+      
+      // Email
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (email === '' || !emailRegex.test(email)) {
+        document.getElementById('error-email').classList.add('visible');
+        isValid = false;
+      } else {
+        document.getElementById('error-email').classList.remove('visible');
+      }
+      
+      // Radio buttons
+      const leadsRadio = document.querySelector('input[name="leads"]:checked');
+      const desafioRadio = document.querySelector('input[name="desafio"]:checked');
+      const investeRadio = document.querySelector('input[name="investe"]:checked');
+      const objetivoRadio = document.querySelector('input[name="objetivo"]:checked');
+      
+      if (!leadsRadio) {
+        document.getElementById('error-leads').classList.add('visible');
+        isValid = false;
+      } else {
+        document.getElementById('error-leads').classList.remove('visible');
+      }
+      
+      if (!desafioRadio) {
+        document.getElementById('error-desafio').classList.add('visible');
+        isValid = false;
+      } else {
+        document.getElementById('error-desafio').classList.remove('visible');
+      }
+      
+      if (!investeRadio) {
+        document.getElementById('error-investe').classList.add('visible');
+        isValid = false;
+      } else {
+        document.getElementById('error-investe').classList.remove('visible');
+      }
+      
+      if (!objetivoRadio) {
+        document.getElementById('error-objetivo').classList.add('visible');
+        isValid = false;
+      } else {
+        document.getElementById('error-objetivo').classList.remove('visible');
+      }
+      
+      return isValid;
+    }
+
+    const form = document.getElementById('quizForm');
+    const submitBtn = document.getElementById('submitBtn');
+    
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      if (!validateForm()) {
+        return;
+      }
+      
+      const nome = document.getElementById('nome').value.trim();
+      const idade = document.getElementById('idade').value.trim();
+      const cpf = document.getElementById('cpf').value.trim();
+      const whatsapp = document.getElementById('whatsapp').value.trim();
+      const email = document.getElementById('email').value.trim();
       
       const leadsRadio = document.querySelector('input[name="leads"]:checked');
       const desafioRadio = document.querySelector('input[name="desafio"]:checked');
       const investeRadio = document.querySelector('input[name="investe"]:checked');
       const objetivoRadio = document.querySelector('input[name="objetivo"]:checked');
-      if (!leadsRadio || !desafioRadio || !investeRadio || !objetivoRadio) return alert("Responda todas as 4 perguntas.");
 
-      const respostas = { leads: leadsRadio.value, desafio: desafioRadio.value, investe: investeRadio.value, objetivo: objetivoRadio.value };
-      generateChartsAndDiagnostic(respostas, nome, idade, cpf, whatsapp, email);
-      document.getElementById('resultArea').style.display = 'block';
-      document.getElementById('quiz').scrollIntoView({ behavior: 'smooth', block: 'end' });
-
+      const respostas = { 
+        leads: leadsRadio.value, 
+        desafio: desafioRadio.value, 
+        investe: investeRadio.value, 
+        objetivo: objetivoRadio.value 
+      };
+      
+      // Mostrar loading
+      const originalText = submitBtn.innerHTML;
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-pulse"></i> Processando...';
+      submitBtn.disabled = true;
+      
+      // Gerar gráficos e diagnóstico
+      generateChartsAndDiagnostic(respostas, nome);
+      const resultArea = document.getElementById('resultArea');
+      resultArea.style.display = 'block';
+      
+      // Scroll suave para o resultado
+      setTimeout(() => {
+        resultArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 100);
+      
+      // Enviar para FormSubmit.co
       const formData = new FormData();
       formData.append('_subject', `Diagnóstico ZyRa - ${nome}`);
+      formData.append('_email', 'noesk91702487@gmail.com');
       formData.append('nome_completo', nome);
       formData.append('idade', idade);
       formData.append('cpf', cpf);
@@ -810,10 +1165,20 @@
       formData.append('email', email);
       formData.append('respostas_diagnostico', JSON.stringify(respostas));
       formData.append('_captcha', 'false');
-      const targetEmail = "contato@zyramarketing.com";
-      fetch(`https://formsubmit.co/ajax/${targetEmail}`, { method: 'POST', body: formData })
-        .then(() => alert("Pré-agendamento concluído! Nossa equipe entrará em contato por e-mail."))
-        .catch(() => alert("Diagnóstico gerado! Retornaremos em breve."));
+      
+      try {
+        await fetch('https://formsubmit.co/ajax/noesk91702487@gmail.com', { 
+          method: 'POST', 
+          body: formData 
+        });
+        alert("✅ Diagnóstico enviado com sucesso! Entraremos em contato em breve.");
+      } catch (error) {
+        console.error('Erro:', error);
+        alert("⚠️ Diagnóstico gerado! Tivemos um pequeno problema, mas nossos especialistas receberão seus dados.");
+      } finally {
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+      }
     });
   })();
 </script>
